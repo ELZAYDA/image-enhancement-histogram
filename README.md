@@ -71,13 +71,13 @@ The output will be saved in the `results/` folder:
 ### Example of Input and Output:
 
 #### Input (Low-Quality Image):
-![Low-Quality](results/data/low/102.png)
+![Low-Quality](data/low/102.png)
 
 #### Output (Enhanced Image):
 ![Enhanced](results/equalized/102_equalized.png)
 
 #### Ground Truth (High-Quality Image):
-![Ground Truth](results/data/high/102.png)
+![Ground Truth](data/high/102.png)
 
 ### SSIM Score:
 The Structural Similarity Index (SSIM) is calculated to measure the similarity between the enhanced and ground truth images. The SSIM score is logged for each image pair.
