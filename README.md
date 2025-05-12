@@ -95,5 +95,9 @@ timestamp,image_name,ssim
 ## Contributing
 If you'd like to contribute to the project, feel free to fork the repository and submit pull requests. Any suggestions for improving the image enhancement methods or performance metrics are welcome!
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## Requirements
+
+Before running the script, make sure to install the necessary dependencies. You can install them using `pip` by running the following command:
+
+```bash
+pip install -r requirements.txt
