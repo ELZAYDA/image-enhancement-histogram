@@ -1,2 +1,5 @@
 Low-Quality Input Image,CLAHE Type,Clip Limit,Tile Grid Size,Gamma Correction,Denoising Strength,Sharpen,Enhanced Image,Ground Truth Image,Similarity Score (SSIM),timestamp
 .gradio\flagged\Low-Quality Input Image\f7a53f959727cc8d7303\21.png,RGB,2.2,8,1.1,8,false,.gradio\flagged\Enhanced Image\b1a1f3597d76b2255fad\image.webp,.gradio\flagged\Ground Truth Image\10f7f8dd529c3b4c6a64\image.webp,SSIM Similarity: 0.3246,2025-05-12 18:15:31.585147
+.gradio\flagged\Low-Quality Input Image\176ca04707654f1316ec\13.png,YUV,5.31,8,0.8,15,false,.gradio\flagged\Enhanced Image\42ec6dba98d464a18ecf\image.webp,.gradio\flagged\Ground Truth Image\44fa643a389bd76760f2\image.webp,"SSIM Similarity: 0.0016
+
+ERROR: No ground truth image found for unknown.png. Using a blank image.",2025-05-12 19:16:21.826754
