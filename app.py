@@ -2,23 +2,18 @@ import gradio as gr
 import cv2
 import numpy as np
 import os
-from skimage.metrics import structural_similarity as ssim
 
-def enhance_and_compare(image, clahe_type, clip_limit, tile_grid_size, gamma_value, denoise_strength, sharpen):
+def enhance_image(image, clahe_type, clip_limit, tile_grid_size, gamma_value, denoise_strength, sharpen):
     # Check if image exists
     if image is None:
-        return [np.zeros((300, 300, 3), dtype=np.uint8), 
-                np.zeros((300, 300, 3), dtype=np.uint8), 
-                "Error: No image uploaded"]
+        return np.zeros((300, 300, 3), dtype=np.uint8)
     
     # Ensure image is in BGR format
     if len(image.shape) != 3 or image.shape[2] != 3:
         try:
             image = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
         except:
-            return [np.zeros((300, 300, 3), dtype=np.uint8), 
-                    np.zeros((300, 300, 3), dtype=np.uint8), 
-                    "Error: Could not convert image to BGR"]
+            return np.zeros((300, 300, 3), dtype=np.uint8)
     
     # Image enhancement
     try:
@@ -76,78 +71,11 @@ def enhance_and_compare(image, clahe_type, clip_limit, tile_grid_size, gamma_val
         if sharpen:
             kernel = np.array([[0, -1, 0], [-1, 5, -1], [0, -1, 0]])
             enhanced_bgr = cv2.filter2D(enhanced_bgr, -1, kernel)
+            
+        return enhanced_bgr
     
     except Exception as e:
-        return [np.zeros((300, 300, 3), dtype=np.uint8), 
-                np.zeros((300, 300, 3), dtype=np.uint8), 
-                f"Error during image enhancement: {str(e)}"]
-    
-    # Try to find ground truth image
-    try:
-        # Get the current example index
-        current_example = None
-        for example in examples:
-            if isinstance(example[0], str) and os.path.exists(example[0]):
-                example_img = cv2.imread(example[0])
-                if example_img is not None and np.array_equal(image, example_img):
-                    current_example = example
-                    break
-        
-        if current_example is not None:
-            input_filename = os.path.basename(current_example[0])
-        else:
-            # If not found in examples, try to get filename from image path if it exists
-            if hasattr(image, 'filename') and image.filename:
-                input_filename = os.path.basename(image.filename)
-            else:
-                input_filename = "unknown.png"
-        
-        # Remove file extension for matching
-        base_filename = os.path.splitext(input_filename)[0]
-        
-        # List of possible ground truth image paths
-        possible_paths = [
-            f"data/high/{base_filename}.png",
-            f"data/high/{base_filename}.jpg",
-            f"data/high/{base_filename}.jpeg"
-        ]
-        
-        ground_truth = None
-        for path in possible_paths:
-            if os.path.exists(path):
-                ground_truth = cv2.imread(path)
-                if ground_truth is not None:
-                    # Resize ground truth image to match enhanced image
-                    ground_truth = cv2.resize(ground_truth, (enhanced_bgr.shape[1], enhanced_bgr.shape[0]))
-                    break
-        
-        # If no ground truth image found
-        if ground_truth is None:
-            ground_truth = np.zeros_like(enhanced_bgr)
-            error_msg = f"No ground truth image found for {input_filename}. Using a blank image."
-        else:
-            error_msg = ""
-    
-    except Exception as e:
-        ground_truth = np.zeros_like(enhanced_bgr)
-        error_msg = f"Error loading ground truth image: {str(e)}"
-    
-    # Calculate SSIM
-    try:
-        enhanced_gray = cv2.cvtColor(enhanced_bgr, cv2.COLOR_BGR2GRAY)
-        gt_gray = cv2.cvtColor(ground_truth, cv2.COLOR_BGR2GRAY)
-        similarity = ssim(enhanced_gray, gt_gray)
-        
-        # Prepare similarity text
-        similarity_text = f"SSIM Similarity: {similarity:.4f}"
-        if error_msg:
-            similarity_text += f"\n\nERROR: {error_msg}"
-    
-    except Exception as e:
-        similarity_text = f"Error calculating SSIM: {str(e)}"
-        similarity = 0.0
-    
-    return [enhanced_bgr, ground_truth, similarity_text]
+        return np.zeros((300, 300, 3), dtype=np.uint8)
 
 # Gradio Interface Setup
 examples = [
@@ -169,7 +97,7 @@ examples = [
 ]
 
 gr.Interface(
-    fn=enhance_and_compare,
+    fn=enhance_image,
     inputs=[
         gr.Image(type="numpy", label="Low-Quality Input Image"),
         gr.Dropdown(choices=["No CLAHE", "RGB", "YUV"], label="CLAHE Type", value="No CLAHE"),
@@ -179,12 +107,8 @@ gr.Interface(
         gr.Slider(minimum=0, maximum=30, value=10, label="Denoising Strength"),
         gr.Checkbox(label="Sharpen", value=True)
     ],
-    outputs=[
-        gr.Image(type="numpy", label="Enhanced Image"),
-        gr.Image(type="numpy", label="Ground Truth Image"),
-        gr.Text(label="Similarity Score (SSIM)")
-    ],
-    title="Image Enhancement & Quality Comparison",
-    description="Upload a low-quality image and compare it with the ground truth using SSIM.",
+    outputs=gr.Image(type="numpy", label="Enhanced Image"),
+    title="Image Enhancement Tool",
+    description="Upload a low-quality image and enhance it using various techniques.",
     examples=examples
 ).launch()
