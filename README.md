@@ -20,11 +20,11 @@ To set up the project, follow these steps:
 
 1. Clone the repository to your local machine:
    ```bash
-   git clone https://github.com/your-username/image-enhancement-project.git
+   git clone https://github.com/ELZAYDA/image-enhancement-histogram.git
    ```
 2. Navigate to the project directory:
    ```bash
-   cd image-enhancement-project
+   cd image-enhancement-histogram
    ```
 3. Install the necessary dependencies using pip:
    ```bash
@@ -34,7 +34,7 @@ To set up the project, follow these steps:
 ### Directory Structure
 The project follows this directory structure:
 ```
-image-enhancement-project/
+image-enhancement-histogram/
 │
 ├── data/                  # Contains input low and high images (subdirectories: low, high)
 ├── results/               # Results directory for saving enhanced images, plots, and metrics
@@ -71,13 +71,13 @@ The output will be saved in the `results/` folder:
 ### Example of Input and Output:
 
 #### Input (Low-Quality Image):
-![Low-Quality](data/low/sample_low_image.jpg)
+![Low-Quality](results/data/low/102.png)
 
 #### Output (Enhanced Image):
-![Enhanced](results/enhanced/sample_enhanced_image.jpg)
+![Enhanced](results/equalized/102_equalized.png)
 
 #### Ground Truth (High-Quality Image):
-![Ground Truth](data/high/sample_high_image.jpg)
+![Ground Truth](results/data/high/102.png)
 
 ### SSIM Score:
 The Structural Similarity Index (SSIM) is calculated to measure the similarity between the enhanced and ground truth images. The SSIM score is logged for each image pair.
@@ -95,5 +95,4 @@ timestamp,image_name,ssim
 ## Contributing
 If you'd like to contribute to the project, feel free to fork the repository and submit pull requests. Any suggestions for improving the image enhancement methods or performance metrics are welcome!
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
