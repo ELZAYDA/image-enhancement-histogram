@@ -1,104 +1,108 @@
+# Advanced Image Enhancement Tool
 
-# Image Enhancement Project
+## Overview
+This is an advanced image enhancement application using state-of-the-art image processing techniques. The tool provides an interactive interface to improve low-quality images through various sophisticated methods.
 
-## Project Purpose and Overview
+## 🌟 Features
+- Advanced image enhancement techniques
+- Multiple CLAHE (Contrast Limited Adaptive Histogram Equalization) processing modes
+- Customizable gamma correction
+- Intelligent denoising
+- Automatic ground truth comparison
+- User-friendly Gradio interface
+- Structural Similarity Index (SSIM) calculation
 
-This project focuses on enhancing low-quality images using advanced image processing techniques such as CLAHE (Contrast Limited Adaptive Histogram Equalization), Gamma Correction, and Denoising. The goal is to improve the quality of images and evaluate their performance by comparing the enhanced images to the corresponding high-quality ground truth images. The project also calculates and logs the Structural Similarity Index (SSIM) score to assess the quality of enhancement.
+## 🛠 Technologies Used
+- Python
+- OpenCV (cv2)
+- NumPy
+- Gradio
+- Scikit-image
 
-## Setup Instructions and Dependencies
+## 📦 Installation
 
 ### Prerequisites
-Ensure that you have the following installed on your system:
-- Python 3.x
-- OpenCV
-- NumPy
-- scikit-image
-- Matplotlib
+- Python 3.8+
+- pip
 
-### Installation
-To set up the project, follow these steps:
-
-1. Clone the repository to your local machine:
-   ```bash
-   git clone https://github.com/ELZAYDA/image-enhancement-histogram.git
-   ```
-2. Navigate to the project directory:
-   ```bash
-   cd image-enhancement-histogram
-   ```
-3. Install the necessary dependencies using pip:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-### Directory Structure
-The project follows this directory structure:
-```
-image-enhancement-histogram/
-│
-├── data/                  # Contains input low and high images (subdirectories: low, high)
-├── results/               # Results directory for saving enhanced images, plots, and metrics
-│   ├── enhanced/          # Enhanced images
-│   ├── plots/             # Plots for comparisons and histograms
-│   ├── metrics/           # Logs of SSIM scores and metrics
-├── requirements.txt       # List of dependencies
-├── script.py              # Main script for image processing
-└── README.md              # Project overview and documentation
-```
-
-## Usage Examples
-
-### Input Images
-This project expects two sets of images:
-- **Low-quality images** (stored in the `data/low` folder).
-- **High-quality ground truth images** (stored in the `data/high` folder).
-
-Ensure that the number of low and high images are the same, and they are named similarly.
-
-### Example Command
-To run the image enhancement and save results, execute the following Python script:
+### Clone the Repository
 ```bash
-python script.py
+git clone https://github.com/ELZAYDA/image-enhancement-histogram.git
+cd image-enhancement-histogram
 ```
 
-### Output
-The output will be saved in the `results/` folder:
-- **Enhanced Images** will be saved in the `results/enhanced` folder.
-- **Comparison Plots** (Original, Enhanced, Ground Truth) will be saved in the `results/plots` folder.
-- **SSIM Scores** will be logged in the `results/metrics/metrics.csv` file.
-- **Histograms** of original, enhanced, and ground truth images will be saved in the `results/plots` folder.
-
-### Example of Input and Output:
-
-#### Input (Low-Quality Image):
-![Low-Quality](data/low/102.png)
-
-#### Output (Enhanced Image):
-![Enhanced](results/equalized/102_equalized.png)
-
-#### Ground Truth (High-Quality Image):
-![Ground Truth](data/high/102.png)
-
-### SSIM Score:
-The Structural Similarity Index (SSIM) is calculated to measure the similarity between the enhanced and ground truth images. The SSIM score is logged for each image pair.
-
-## Results and Performance Metrics
-
-The project evaluates the enhancement quality using the **Structural Similarity Index (SSIM)** between the enhanced image and the corresponding high-quality ground truth image. The SSIM scores are saved in a CSV file for further analysis.
-
-Example CSV log entry:
-```
-timestamp,image_name,ssim
-2025-05-12 12:34:56,sample_low_image,0.85
+### Create Virtual Environment (Recommended)
+```bash
+python -m venv venv
+# On Windows
+venv\Scripts\activate
+# On macOS/Linux
+source venv/bin/activate
 ```
 
-## Contributing
-If you'd like to contribute to the project, feel free to fork the repository and submit pull requests. Any suggestions for improving the image enhancement methods or performance metrics are welcome!
-
-## Requirements
-
-Before running the script, make sure to install the necessary dependencies. You can install them using `pip` by running the following command:
-
+### Install Dependencies
 ```bash
 pip install -r requirements.txt
+```
 
+image-enhancement-histogram/
+│
+├── data/                  # Contains input images
+│   ├── low/               # Low-quality input images
+│   └── high/              # High-quality ground truth images
+│
+├── .gradio/               # Automatically generated by Gradio during app use
+│   ├── low/               # Uploaded low-quality images
+│   ├── enhanced/          # Enhanced output images
+│   └── ground/            # Uploaded ground truth images
+│
+├── app.py                 # Gradio app script
+├── requirements.txt       # Dependencies
+└── README.md              # Project documentation
+
+
+## 🚀 Running the Application
+```bash
+python app.py
+```
+
+## 📝 Usage
+1. Upload a low-quality image
+2. Adjust enhancement parameters:
+   - CLAHE Type (RGB/YUV/No CLAHE)
+   - Clip Limit
+   - Tile Grid Size
+   - Gamma Correction
+   - Denoising Strength
+   - Sharpening
+
+## 📊 Parameters Explained
+- **CLAHE Type**: 
+  - `No CLAHE`: No contrast enhancement
+  - `RGB`: Apply CLAHE to each RGB channel
+  - `YUV`: Apply CLAHE to luminance channel
+- **Clip Limit**: Controls contrast enhancement intensity
+- **Tile Grid Size**: Determines local area for histogram equalization
+- **Gamma Correction**: Adjusts image brightness and contrast
+- **Denoising Strength**: Removes image noise while preserving details
+- **Sharpening**: Enhances image edges and details
+
+## 🖼 Example
+![Example Enhancement](example.png)
+
+## 📈 Performance Metrics
+- Structural Similarity Index (SSIM) for quality comparison
+- Real-time enhancement visualization
+
+## 🤝 Contributing
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+
+## 📞 Contact
+Ahmed Nabil - ahmedelzayda19@gmail.com
+
+Project Link: [https://github.com/ELZAYDA/image-enhancement-histogram]
